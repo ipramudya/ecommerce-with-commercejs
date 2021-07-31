@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(() => ({
   root: {
     maxWidth: '100%',
+    height: '100%',
   },
   media: {
     height: 0,
@@ -15,5 +16,13 @@ export default makeStyles(() => ({
   cardContent: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  cardDescription: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    WebkitLineClamp: '2',
+    WebkitBoxOrient: 'vertical',
+    lineHeight: '1.5',
+    display: '-webkit-box',
   },
 }));
