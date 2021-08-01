@@ -19,6 +19,9 @@ export default makeStyles((theme) => ({
   },
   link: {
     textDecoration: 'none',
+    '&:hover': {
+      color: 'blue',
+    },
   },
   cardDetails: {
     display: 'flex',
