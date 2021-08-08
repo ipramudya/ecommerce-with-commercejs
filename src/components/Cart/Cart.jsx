@@ -1,11 +1,17 @@
+import { useContext } from 'react';
 import { Container, Typography, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
+import { DataContext } from '../../context/context';
 import CartItem from './CartItem/CartItem';
+import useHandler from '../../hooks/useHandler';
 
 import useStyles from './styles';
 
-const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
+const Cart = () => {
   const classes = useStyles();
+  const { cart } = useContext(DataContext);
+  const { handleEmptyCart } = useHandler();
 
   const EmptyCart = () => {
     return (
@@ -24,11 +30,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
         <Grid container spacing={3}>
           {cart.line_items.map((item) => (
             <Grid item xs={12} sm={4} key={item.id}>
-              <CartItem
-                item={item}
-                onUpdateCartQty={onUpdateCartQty}
-                onRemoveFromCart={onRemoveFromCart}
-              />
+              <CartItem item={item} />
             </Grid>
           ))}
         </Grid>
@@ -43,7 +45,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
               type='button'
               variant='contained'
               color='secondary'
-              onClick={onEmptyCart}
+              onClick={handleEmptyCart}
             >
               Empty Cart
             </Button>

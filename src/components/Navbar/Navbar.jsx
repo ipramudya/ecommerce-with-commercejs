@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -10,12 +11,14 @@ import {
 } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 
+import { DataContext } from '../../context/context';
 import useStyles from './styles';
 import logo from '../../assets/shop.png';
 
-const Navbar = ({ totalItems }) => {
+const Navbar = () => {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const { cart } = useContext(DataContext);
 
   return (
     <>
@@ -45,7 +48,7 @@ const Navbar = ({ totalItems }) => {
                 aria-label='Show cart items'
                 color='inherit'
               >
-                <Badge badgeContent={totalItems} color='secondary'>
+                <Badge badgeContent={cart.total_items} color='secondary'>
                   <ShoppingCart />
                 </Badge>
               </IconButton>

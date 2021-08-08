@@ -6,12 +6,13 @@ import {
   CardContent,
   CardMedia,
 } from '@material-ui/core';
+import useHandler from '../../../hooks/useHandler';
 
 import useStyles from './styles';
 
-const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
+const CartItem = ({ item }) => {
   const classes = useStyles();
-  console.log(item);
+  const { handleUpdateCartQty, handleRemoveFromCart } = useHandler();
 
   return (
     <Card className={classes.root}>
@@ -31,7 +32,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
           <Button
             type='button'
             size='small'
-            onClick={() => onUpdateCartQty(item.id, item.quantity - 1)}
+            onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}
           >
             -
           </Button>
@@ -39,7 +40,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
           <Button
             type='button'
             size='small'
-            onClick={() => onUpdateCartQty(item.id, item.quantity + 1)}
+            onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}
           >
             +
           </Button>
@@ -48,7 +49,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
           type='button'
           color='secondary'
           variant='contained'
-          onClick={() => onRemoveFromCart(item.id)}
+          onClick={() => handleRemoveFromCart(item.id)}
         >
           Remove
         </Button>

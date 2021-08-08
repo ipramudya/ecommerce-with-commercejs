@@ -1,65 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { commerce } from './lib/commerce';
+import { DataContext } from './context/context';
 import { Cart, Checkout, Navbar, Products } from './components';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
-
-  const fetchProducts = async () => {
-    const { data } = await commerce.products.list();
-    setProducts(data);
-  };
-
-  const fetchCart = async () => {
-    setCart(await commerce.cart.retrieve());
-  };
-
-  const handleAddToCart = async (productId, quantity) => {
-    const { cart } = await commerce.cart.add(productId, quantity);
-    setCart(cart);
-  };
-
-  const handleUpdateCartQty = async (lineItemId, quantity) => {
-    const { cart } = await commerce.cart.update(lineItemId, { quantity });
-    setCart(cart);
-  };
-
-  const handleRemoveFromCart = async (lineItemId) => {
-    const { cart } = await commerce.cart.remove(lineItemId);
-    setCart(cart);
-  };
-
-  const handleEmptyCart = async () => {
-    const { cart } = await commerce.cart.empty();
-    setCart(cart);
-  };
-
-  useEffect(() => {
-    fetchProducts();
-    fetchCart();
-  }, []);
-
-  console.dir(cart);
-  // console.dir(products);
+  const { cart } = useContext(DataContext);
 
   return (
     <Router>
       <div>
-        <Navbar totalItems={cart.total_items} />
+        <Navbar />
         <Switch>
           <Route exact path='/'>
-            <Products products={products} onAddToCart={handleAddToCart} />
+            <Products />
           </Route>
           <Route exact path='/cart'>
-            <Cart
-              cart={cart}
-              onUpdateCartQty={handleUpdateCartQty}
-              onRemoveFromCart={handleRemoveFromCart}
-              onEmptyCart={handleEmptyCart}
-            />
+            <Cart />
           </Route>
           <Route exact path='/checkout'>
             <Checkout cart={cart} />

@@ -7,13 +7,14 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
+import useHandler from '../../../hooks/useHandler';
 
 import useStyle from './styles';
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product }) => {
   const classes = useStyle();
+  const { handleAddToCart } = useHandler();
   const { id, name, media, price, description } = product;
-  // console.log(product);
 
   return (
     <Card className={classes.root}>
@@ -32,7 +33,10 @@ const Product = ({ product, onAddToCart }) => {
         />
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton aria-label='Add to cart' onClick={() => onAddToCart(id, 1)}>
+        <IconButton
+          aria-label='Add to cart'
+          onClick={() => handleAddToCart(id, 1)}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>
